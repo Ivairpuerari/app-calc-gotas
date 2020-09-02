@@ -7,7 +7,11 @@ const Stack = createStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Calculator"
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen name="Calculator" component={Calculator} />
       <Stack.Screen name="Result" component={Result} />
     </Stack.Navigator>
