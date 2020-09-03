@@ -1,26 +1,163 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import styled from 'styled-components';
+import IconeGota from '../../assets/gotas.png';
+import IconeTime from '../../assets/time.png';
 
 const Header = styled.View`
-  background: #87cefa;
+  position: absolute;
+  height: 10%;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+
+  background: #00008b;
+`;
+
+const Container = styled.View`
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  background: #191970;
 `;
 
 const Title = styled.Text`
-  font-size: 14px;
-  color: white;
+  position: absolute;
+  left: 20%;
+  right: 25%;
+  top: 20.95%;
+  bottom: 23.05%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const ButtonI = styled.TouchableOpacity`
+  position: absolute;
+  
+  ${({g, m, t}) => {
+    switch (true) {
+      case g:
+        return ` left: 10px
+        right: 0px`;
+
+      case m:
+        return ` left: 130px
+          right: 130px`;
+      case t:
+        return ` left: 250px
+            right: 0px`;
+    }
+  }}
+  
+  width: 100px;
+  height: 105px
+ 
+  top: 92px;
+
+  background: #00008b;
+  border-radius: 32px;
+`;
+
+const Gotas = styled.Image`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  top: ${(props) => props.top};
+`;
+
+const LabelGotas = styled.Text`
+  position: absolute;
+  width: 91px;
+  height: 21px;
+  left: 5px;
+  right: 5px;
+  top: 80px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 21px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
 `;
 
 export default function Calculator() {
   return (
-    <View>
-      <View>
+    <>
+      <Container>
         <Header>
-          <Title>CALCULADORA DE GOTAS</Title>
+          <Title> CALCULADORA DE GOTEJAMENTO</Title>
         </Header>
-      </View>
 
-      <Text>Calcular</Text>
-    </View>
+        <ButtonI g>
+          <Gotas
+            source={IconeGota}
+            left={'20px'}
+            right={'20px'}
+            top={'15px'}
+            height={'62px'}
+            width={'58px'}
+          />
+          <LabelGotas>GOTAS</LabelGotas>
+        </ButtonI>
+        <ButtonI m>
+          <Gotas
+            source={IconeGota}
+            left={'50px'}
+            right={'20px'}
+            top={'35px'}
+            height={'40px'}
+            width={'40px'}
+          />
+          <Gotas
+            source={IconeGota}
+            left={'10px'}
+            right={'10px'}
+            top={'-20px'}
+            height={'40px'}
+            width={'40px'}
+          />
+          <LabelGotas>MICROGOTAS</LabelGotas>
+        </ButtonI>
+        <ButtonI t>
+          <Gotas
+            source={IconeTime}
+            left={'25px'}
+            right={'20px'}
+            top={'20px'}
+            height={'55px'}
+            width={'55px'}
+          />
+          <LabelGotas>TEMPO</LabelGotas>
+        </ButtonI>
+      </Container>
+    </>
   );
 }
