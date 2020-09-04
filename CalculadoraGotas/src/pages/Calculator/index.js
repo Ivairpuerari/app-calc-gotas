@@ -48,19 +48,19 @@ const Title = styled.Text`
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-const ButtonI = styled.TouchableOpacity`
+const Button = styled.TouchableOpacity`
   position: absolute;
   
-  ${({g, m, t}) => {
+  ${({gotasEnum, microEnum, tempoEnum}) => {
     switch (true) {
-      case g:
+      case gotasEnum:
         return ` left: 10px
         right: 0px`;
 
-      case m:
+      case microEnum:
         return ` left: 130px
           right: 130px`;
-      case t:
+      case tempoEnum:
         return ` left: 250px
             right: 0px`;
     }
@@ -108,6 +108,107 @@ const LabelGotas = styled.Text`
   color: #ffffff;
 `;
 
+const LabelInputVol = styled.Text`
+  position: absolute;
+  width: 164px;
+  width: 164px;
+  height: 50px;
+  left: 29px;
+  right: 213px;
+  top: 285px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+`;
+
+const LabelInputTempo = styled.Text`
+  position: absolute;
+  width: 164px;
+  height: 50px;
+  left: 29px;
+  top: 445px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+`;
+
+const InputTextVol = styled.TextInput`
+  position: absolute;
+  width: 146px;
+  height: 55px;
+  left: 200px;
+  top: 275px;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+
+const InputTextTempo = styled.TextInput`
+  position: absolute;
+  width: 146px;
+  height: 55px;
+  left: 200px;
+  top: 435px;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+
+const ButtonCalcular = styled.TouchableOpacity`
+  position: absolute;
+  width: 224px;
+  height: 55px;
+  left: 65px;
+  top: 88%;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+const LabelBotaoCalcular = styled.Text`
+  width: 224px;
+  height: 55px;
+  left: 50px;
+  top: 25%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+`;
 export default function Calculator() {
   return (
     <>
@@ -116,7 +217,7 @@ export default function Calculator() {
           <Title> CALCULADORA DE GOTEJAMENTO</Title>
         </Header>
 
-        <ButtonI g>
+        <Button gotasEnum>
           <Gotas
             source={IconeGota}
             left={'20px'}
@@ -126,8 +227,8 @@ export default function Calculator() {
             width={'58px'}
           />
           <LabelGotas>GOTAS</LabelGotas>
-        </ButtonI>
-        <ButtonI m>
+        </Button>
+        <Button microEnum>
           <Gotas
             source={IconeGota}
             left={'50px'}
@@ -145,8 +246,8 @@ export default function Calculator() {
             width={'40px'}
           />
           <LabelGotas>MICROGOTAS</LabelGotas>
-        </ButtonI>
-        <ButtonI t>
+        </Button>
+        <Button tempoEnum>
           <Gotas
             source={IconeTime}
             left={'25px'}
@@ -156,7 +257,19 @@ export default function Calculator() {
             width={'55px'}
           />
           <LabelGotas>TEMPO</LabelGotas>
-        </ButtonI>
+        </Button>
+
+        <LabelInputVol>VOL (ML)</LabelInputVol>
+
+        <InputTextVol />
+
+        <LabelInputTempo>TEMPO (H)</LabelInputTempo>
+
+        <InputTextTempo />
+
+        <ButtonCalcular>
+          <LabelBotaoCalcular>CALCULAR</LabelBotaoCalcular>
+        </ButtonCalcular>
       </Container>
     </>
   );
