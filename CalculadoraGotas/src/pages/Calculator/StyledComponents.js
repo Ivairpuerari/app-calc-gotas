@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Header = styled.View`
   position: absolute;
-  height: 10%;
+  height: 65px;
   left: 0px;
   right: 0px;
   top: 0px;
@@ -118,7 +118,7 @@ const LabelInputVol = styled.Text`
   height: 50px;
   left: 29px;
   right: 213px;
-  top: 285px;
+  top: 20px;
 
   font-family: Roboto;
   font-style: normal;
@@ -139,9 +139,11 @@ const LabelInputVol = styled.Text`
 const LabelInputTempo = styled.Text`
   position: absolute;
   width: 164px;
+  width: 164px;
   height: 50px;
   left: 29px;
-  top: 445px;
+  right: 213px;
+  top: 20px;
 
   font-family: Roboto;
   font-style: normal;
@@ -161,24 +163,48 @@ const LabelInputTempo = styled.Text`
 
 const InputTextVol = styled.TextInput`
   position: absolute;
-  width: 146px;
-  height: 55px;
-  left: 200px;
-  top: 275px;
 
-  background: #00008b;
-  border-radius: 33px;
+  width: 164px;
+  height: 50px;
+  left: 225px;
+  right: 213px;
+  top: 10px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  color: #ffffff;
 `;
 
 const InputTextTempo = styled.TextInput`
   position: absolute;
-  width: 146px;
-  height: 55px;
-  left: 200px;
-  top: 435px;
 
-  background: #00008b;
-  border-radius: 33px;
+  width: 164px;
+  height: 50px;
+  left: 225px;
+  right: 213px;
+  top: 15px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  color: #ffffff;
 `;
 
 const ButtonCalcular = styled.TouchableOpacity`
@@ -186,7 +212,7 @@ const ButtonCalcular = styled.TouchableOpacity`
   width: 224px;
   height: 55px;
   left: 65px;
-  top: 88%;
+  top: 550px;
 
   background: #00008b;
   border-radius: 33px;
@@ -213,6 +239,28 @@ const LabelBotaoCalcular = styled.Text`
   color: #ffffff;
 `;
 
+const ContentVolume = styled.View`
+  position: absolute;
+  width: 300px;
+  height: 68px;
+  left: 30px;
+  top: 257px;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+
+const ContentTempo = styled.View`
+  position: absolute;
+  width: 300px;
+  height: 68px;
+  left: 30px;
+  top: 370px;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+
 export {
   Header,
   Container,
@@ -226,4 +274,6 @@ export {
   InputTextTempo,
   ButtonCalcular,
   LabelBotaoCalcular,
+  ContentVolume,
+  ContentTempo,
 };

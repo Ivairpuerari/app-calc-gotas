@@ -5,6 +5,8 @@ import {
   Button,
   ButtonCalcular,
   Container,
+  ContentTempo,
+  ContentVolume,
   Gotas,
   Header,
   InputTextTempo,
@@ -25,19 +27,47 @@ export default function Calculator() {
   const [isCalculoTempo, setIsCalculoTempo] = useState(false);
 
   useEffect(() => {
+    setValorVolume(0);
+    setValorTempo(0);
+    setResultado(0);
     setIsCalculoMicroGotas(false);
     setIsCalculoTempo(false);
   }, [isCalculoGotas]);
 
   useEffect(() => {
+    setValorVolume(0);
+    setValorTempo(0);
+    setResultado(0);
     setIsCalculoGotas(false);
     setIsCalculoTempo(false);
   }, [isCalculoMicroGotas]);
 
   useEffect(() => {
+    setValorVolume(0);
+    setValorTempo(0);
+    setResultado(0);
     setIsCalculoGotas(false);
     setIsCalculoMicroGotas(false);
   }, [isCalculoTempo]);
+
+  function onConvert(valor) {
+    const numericRegex = /^([0-9]{1,100})+$/;
+    if (numericRegex.test(valor)) {
+      return parseInt(valor);
+    }
+
+    return 0;
+  }
+
+  useEffect(() => {
+    setValorVolume(0);
+    setValorTempo(0);
+    setResultado(0);
+
+    setIsCalculoGotas(true);
+    setIsCalculoMicroGotas(false);
+    setIsCalculoTempo(false);
+  }, []);
 
   return (
     <>
@@ -85,7 +115,9 @@ export default function Calculator() {
         <Button
           tempoEnum
           selecionado={isCalculoTempo}
-          OnPress={() => setIsCalculoTempo(true)}>
+          OnPress={() => {
+            setIsCalculoTempo(true);
+          }}>
           <Gotas
             source={IconeTime}
             left={'25px'}
@@ -97,21 +129,23 @@ export default function Calculator() {
           <LabelGotas>TEMPO</LabelGotas>
         </Button>
 
-        <LabelInputVol>VOL (ML)</LabelInputVol>
+        <ContentVolume>
+          <LabelInputVol>VOL (ML)</LabelInputVol>
+          <InputTextVol
+            keyboardType={'numeric'}
+            onChangeText={(valor) => setValorVolume(onConvert(valor))}
+            value={valorVolume.toString()}
+          />
+        </ContentVolume>
 
-        <InputTextVol
-          keyboardType={'numeric'}
-          onChangeText={(valor) => setValorVolume(valor)}
-          value={valorVolume}
-        />
-
-        <LabelInputTempo>TEMPO (H)</LabelInputTempo>
-
-        <InputTextTempo
-          keyboardType={'numeric'}
-          onChangeText={(valor) => setValorTempo(valor)}
-          value={valorTempo}
-        />
+        <ContentTempo>
+          <LabelInputTempo>TEMPO (H)</LabelInputTempo>
+          <InputTextTempo
+            keyboardType={'numeric'}
+            onChangeText={(valor) => setValorTempo(onConvert(valor))}
+            value={valorTempo.toString()}
+          />
+        </ContentTempo>
 
         <ButtonCalcular>
           <LabelBotaoCalcular>CALCULAR</LabelBotaoCalcular>
