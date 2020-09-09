@@ -161,6 +161,31 @@ const LabelInputTempo = styled.Text`
   color: #ffffff;
 `;
 
+const LabelInputGotas = styled.Text`
+  position: absolute;
+  width: 164px;
+  width: 164px;
+  height: 50px;
+  left: 29px;
+  right: 213px;
+  top: 20px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+`;
+
 const InputTextVol = styled.TextInput`
   position: absolute;
 
@@ -185,6 +210,29 @@ const InputTextVol = styled.TextInput`
 `;
 
 const InputTextTempo = styled.TextInput`
+  position: absolute;
+
+  width: 164px;
+  height: 50px;
+  left: 225px;
+  right: 213px;
+  top: 15px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  color: #ffffff;
+`;
+
+const InputTextGotas = styled.TextInput`
   position: absolute;
 
   width: 164px;
@@ -261,6 +309,17 @@ const ContentTempo = styled.View`
   border-radius: 33px;
 `;
 
+const ContentGotas = styled.View`
+  position: absolute;
+  width: 300px;
+  height: 68px;
+  left: 30px;
+  top: 370px;
+
+  background: #00008b;
+  border-radius: 33px;
+`;
+
 export {
   Header,
   Container,
@@ -276,4 +335,7 @@ export {
   LabelBotaoCalcular,
   ContentVolume,
   ContentTempo,
+  ContentGotas,
+  InputTextGotas,
+  LabelInputGotas,
 };

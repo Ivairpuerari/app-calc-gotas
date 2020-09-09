@@ -5,53 +5,33 @@ import {
   Button,
   ButtonCalcular,
   Container,
+  ContentGotas,
   ContentTempo,
   ContentVolume,
   Gotas,
   Header,
+  InputTextGotas,
   InputTextTempo,
   InputTextVol,
   LabelBotaoCalcular,
   LabelGotas,
+  LabelInputGotas,
   LabelInputTempo,
   LabelInputVol,
   Title,
 } from './StyledComponents';
 
 export default function Calculator() {
-  const [valorVolume, setValorVolume] = useState(0);
-  const [valorTempo, setValorTempo] = useState(0);
-  const [resultado, setResultado] = useState(0);
+  const [valorVolume, setValorVolume] = useState(0.0);
+  const [valorTempo, setValorTempo] = useState(0.0);
+  const [valorGotas, setValorGotas] = useState(0.0);
+  const [resultado, setResultado] = useState(0.0);
   const [isCalculoGotas, setIsCalculoGotas] = useState(true);
   const [isCalculoMicroGotas, setIsCalculoMicroGotas] = useState(false);
   const [isCalculoTempo, setIsCalculoTempo] = useState(false);
 
-  useEffect(() => {
-    setValorVolume(0);
-    setValorTempo(0);
-    setResultado(0);
-    setIsCalculoMicroGotas(false);
-    setIsCalculoTempo(false);
-  }, [isCalculoGotas]);
-
-  useEffect(() => {
-    setValorVolume(0);
-    setValorTempo(0);
-    setResultado(0);
-    setIsCalculoGotas(false);
-    setIsCalculoTempo(false);
-  }, [isCalculoMicroGotas]);
-
-  useEffect(() => {
-    setValorVolume(0);
-    setValorTempo(0);
-    setResultado(0);
-    setIsCalculoGotas(false);
-    setIsCalculoMicroGotas(false);
-  }, [isCalculoTempo]);
-
   function onConvert(valor) {
-    const numericRegex = /^([0-9]{1,100})+$/;
+    const numericRegex = /^\d*\.?(?:\d{1,2})?$/;
     if (numericRegex.test(valor)) {
       return parseInt(valor);
     }
@@ -60,14 +40,78 @@ export default function Calculator() {
   }
 
   useEffect(() => {
-    setValorVolume(0);
-    setValorTempo(0);
-    setResultado(0);
+    setValorVolume(0.0);
+    setValorTempo(0.0);
+    setValorGotas(0.0);
+    setResultado(0.0);
 
     setIsCalculoGotas(true);
     setIsCalculoMicroGotas(false);
     setIsCalculoTempo(false);
   }, []);
+
+  const zerarVariaveisDeCalculo = () => {
+    setValorVolume(0.0);
+    setValorTempo(0.0);
+    setValorGotas(0.0);
+    setResultado(0.0);
+  };
+
+  const setCalculoGotas = () => {
+    zerarVariaveisDeCalculo();
+
+    setIsCalculoGotas(true);
+    setIsCalculoMicroGotas(false);
+    setIsCalculoTempo(false);
+  };
+
+  const setCalculoMicroGotas = () => {
+    zerarVariaveisDeCalculo();
+
+    setIsCalculoGotas(false);
+    setIsCalculoMicroGotas(true);
+    setIsCalculoTempo(false);
+  };
+
+  const setCalculoTempo = () => {
+    zerarVariaveisDeCalculo();
+
+    setIsCalculoGotas(false);
+    setIsCalculoMicroGotas(false);
+    setIsCalculoTempo(true);
+  };
+
+  const navigateToResumo = (total) => {
+    console.log(valorVolume);
+    console.log(valorTempo);
+    console.log(valorGotas);
+    console.log(total);
+  };
+
+  const calcularResultado = () => {
+    let total = 0.0;
+    if (isCalculoGotas) {
+      if (valorTempo > 0 && valorVolume > 0) {
+        total = valorVolume / (valorTempo * 3);
+      }
+    }
+
+    if (isCalculoMicroGotas) {
+      if (valorTempo > 0 && valorVolume > 0) {
+        total = valorVolume / valorTempo;
+      }
+    }
+
+    if (isCalculoTempo) {
+      if (valorGotas > 0 && valorVolume > 0) {
+        total = valorVolume / (valorGotas * 3);
+      }
+    }
+
+    if (total > 0.0) {
+      navigateToResumo(total);
+    }
+  };
 
   return (
     <>
@@ -75,11 +119,10 @@ export default function Calculator() {
         <Header>
           <Title> CALCULADORA DE GOTEJAMENTO</Title>
         </Header>
-
         <Button
           gotasEnum
           selecionado={isCalculoGotas}
-          OnPress={() => setIsCalculoGotas(true)}>
+          onPress={() => setCalculoGotas()}>
           <Gotas
             source={IconeGota}
             left={'20px'}
@@ -93,7 +136,7 @@ export default function Calculator() {
         <Button
           microEnum
           selecionado={isCalculoMicroGotas}
-          OnPress={() => setIsCalculoMicroGotas(true)}>
+          onPress={() => setCalculoMicroGotas()}>
           <Gotas
             source={IconeGota}
             left={'50px'}
@@ -115,8 +158,8 @@ export default function Calculator() {
         <Button
           tempoEnum
           selecionado={isCalculoTempo}
-          OnPress={() => {
-            setIsCalculoTempo(true);
+          onPress={() => {
+            setCalculoTempo();
           }}>
           <Gotas
             source={IconeTime}
@@ -128,7 +171,6 @@ export default function Calculator() {
           />
           <LabelGotas>TEMPO</LabelGotas>
         </Button>
-
         <ContentVolume>
           <LabelInputVol>VOL (ML)</LabelInputVol>
           <InputTextVol
@@ -137,17 +179,27 @@ export default function Calculator() {
             value={valorVolume.toString()}
           />
         </ContentVolume>
-
-        <ContentTempo>
-          <LabelInputTempo>TEMPO (H)</LabelInputTempo>
-          <InputTextTempo
-            keyboardType={'numeric'}
-            onChangeText={(valor) => setValorTempo(onConvert(valor))}
-            value={valorTempo.toString()}
-          />
-        </ContentTempo>
-
-        <ButtonCalcular>
+        {(isCalculoGotas || isCalculoMicroGotas) && (
+          <ContentTempo>
+            <LabelInputTempo>TEMPO (H)</LabelInputTempo>
+            <InputTextTempo
+              keyboardType={'numeric'}
+              onChangeText={(valor) => setValorTempo(onConvert(valor))}
+              value={valorTempo.toString()}
+            />
+          </ContentTempo>
+        )}
+        {isCalculoTempo && (
+          <ContentGotas>
+            <LabelInputGotas>GOTAS (P/M)</LabelInputGotas>
+            <InputTextGotas
+              keyboardType={'numeric'}
+              onChangeText={(valor) => setValorGotas(onConvert(valor))}
+              value={valorGotas.toString()}
+            />
+          </ContentGotas>
+        )}
+        <ButtonCalcular onPress={() => calcularResultado()}>
           <LabelBotaoCalcular>CALCULAR</LabelBotaoCalcular>
         </ButtonCalcular>
       </Container>
