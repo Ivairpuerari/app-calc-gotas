@@ -22,6 +22,37 @@ const Container = styled.View`
   background: #c0c0c0;
 `;
 
+const ContainerGrafico = styled.View`
+  position: absolute;
+  width: 315px;
+  height: 270px;
+  left: 5px;
+  top: 175px;
+`;
+
+const TitleGrafico = styled.Text`
+  position: absolute;
+  left: 20%;
+  right: 25%;
+  top: 20.95%;
+  bottom: 23.05%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
 const Title = styled.Text`
   position: absolute;
   left: 20%;
@@ -76,6 +107,14 @@ const Button = styled.TouchableOpacity`
   }}
  
   border-radius: 32px;
+`;
+
+const ButtonVoltar = styled.TouchableOpacity`
+  position: absolute;
+  height: 20px;
+  left: 4px;
+  right: 303px;
+  top: 10px;
 `;
 
 const Gotas = styled.Image`
@@ -191,7 +230,7 @@ const InputTextVol = styled.TextInput`
 
   width: 164px;
   height: 50px;
-  left: 225px;
+  left: 200px;
   right: 213px;
   top: 10px;
 
@@ -214,7 +253,7 @@ const InputTextTempo = styled.TextInput`
 
   width: 164px;
   height: 50px;
-  left: 225px;
+  left: 200px;
   right: 213px;
   top: 15px;
 
@@ -237,7 +276,7 @@ const InputTextGotas = styled.TextInput`
 
   width: 164px;
   height: 50px;
-  left: 225px;
+  left: 200px;
   right: 213px;
   top: 15px;
 
@@ -338,4 +377,7 @@ export {
   ContentGotas,
   InputTextGotas,
   LabelInputGotas,
+  ButtonVoltar,
+  ContainerGrafico,
+  TitleGrafico,
 };

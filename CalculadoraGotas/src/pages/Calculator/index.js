@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import IconeGota from '../../assets/gotas.png';
 import IconeTime from '../../assets/time.png';
@@ -22,28 +23,19 @@ import {
 } from './StyledComponents';
 
 export default function Calculator() {
-  const [valorVolume, setValorVolume] = useState(0.0);
-  const [valorTempo, setValorTempo] = useState(0.0);
-  const [valorGotas, setValorGotas] = useState(0.0);
-  const [resultado, setResultado] = useState(0.0);
+  const [valorVolume, setValorVolume] = useState(0);
+  const [valorTempo, setValorTempo] = useState(0);
+  const [valorGotas, setValorGotas] = useState(0);
   const [isCalculoGotas, setIsCalculoGotas] = useState(true);
   const [isCalculoMicroGotas, setIsCalculoMicroGotas] = useState(false);
   const [isCalculoTempo, setIsCalculoTempo] = useState(false);
 
-  function onConvert(valor) {
-    const numericRegex = /^\d*\.?(?:\d{1,2})?$/;
-    if (numericRegex.test(valor)) {
-      return parseInt(valor);
-    }
-
-    return 0;
-  }
+  const navigation = useNavigation();
 
   useEffect(() => {
-    setValorVolume(0.0);
-    setValorTempo(0.0);
-    setValorGotas(0.0);
-    setResultado(0.0);
+    setValorVolume(0);
+    setValorTempo(0);
+    setValorGotas(0);
 
     setIsCalculoGotas(true);
     setIsCalculoMicroGotas(false);
@@ -51,10 +43,9 @@ export default function Calculator() {
   }, []);
 
   const zerarVariaveisDeCalculo = () => {
-    setValorVolume(0.0);
-    setValorTempo(0.0);
-    setValorGotas(0.0);
-    setResultado(0.0);
+    setValorVolume(0);
+    setValorTempo(0);
+    setValorGotas(0);
   };
 
   const setCalculoGotas = () => {
@@ -82,10 +73,16 @@ export default function Calculator() {
   };
 
   const navigateToResumo = (total) => {
-    console.log(valorVolume);
-    console.log(valorTempo);
-    console.log(valorGotas);
-    console.log(total);
+    const item = {
+      volume: valorVolume,
+      tempo: valorTempo,
+      gotas: valorGotas,
+      resultado: total,
+    };
+
+    console.log(item);
+
+    navigation.navigate('Result', {item});
   };
 
   const calcularResultado = () => {
@@ -107,7 +104,7 @@ export default function Calculator() {
         total = valorVolume / (valorGotas * 3);
       }
     }
-
+    console.log(total);
     if (total > 0.0) {
       navigateToResumo(total);
     }
@@ -175,7 +172,7 @@ export default function Calculator() {
           <LabelInputVol>VOL (ML)</LabelInputVol>
           <InputTextVol
             keyboardType={'numeric'}
-            onChangeText={(valor) => setValorVolume(onConvert(valor))}
+            onChangeText={(valor) => setValorVolume(valor)}
             value={valorVolume.toString()}
           />
         </ContentVolume>
@@ -184,7 +181,7 @@ export default function Calculator() {
             <LabelInputTempo>TEMPO (H)</LabelInputTempo>
             <InputTextTempo
               keyboardType={'numeric'}
-              onChangeText={(valor) => setValorTempo(onConvert(valor))}
+              onChangeText={(valor) => setValorTempo(valor)}
               value={valorTempo.toString()}
             />
           </ContentTempo>
@@ -194,7 +191,7 @@ export default function Calculator() {
             <LabelInputGotas>GOTAS (P/M)</LabelInputGotas>
             <InputTextGotas
               keyboardType={'numeric'}
-              onChangeText={(valor) => setValorGotas(onConvert(valor))}
+              onChangeText={(valor) => setValorGotas(valor)}
               value={valorGotas.toString()}
             />
           </ContentGotas>
