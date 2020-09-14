@@ -15,6 +15,8 @@ const Container = styled.View`
   flex-direction: row;
   padding: 0px;
 
+  align-items: center
+
   position: relative;
   width: 100%;
   height: 100%;
@@ -26,8 +28,8 @@ const ContainerGrafico = styled.View`
   position: absolute;
   width: 315px;
   height: 270px;
-  left: 5px;
-  top: 175px;
+
+  top: 100px;
 `;
 
 const TitleGrafico = styled.Text`
@@ -326,6 +328,28 @@ const LabelBotaoCalcular = styled.Text`
   color: #ffffff;
 `;
 
+const LabelBotaoCompartilhar = styled.Text`
+  width: 224px;
+  height: 55px;
+  left: 20px;
+  top: 25%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+
+  display: flex;
+  align-items: center;
+
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+`;
+
 const ContentVolume = styled.View`
   position: absolute;
   width: 300px;
@@ -380,4 +404,5 @@ export {
   ButtonVoltar,
   ContainerGrafico,
   TitleGrafico,
+  LabelBotaoCompartilhar,
 };

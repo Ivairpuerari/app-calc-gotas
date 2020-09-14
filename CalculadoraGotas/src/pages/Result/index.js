@@ -1,23 +1,17 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useCallback, useRef} from 'react';
-import {
-  Dimensions,
-  Share,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useRef} from 'react';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
+import Share from 'react-native-share';
 import Feather from 'react-native-vector-icons/Feather';
-import ViewShot from 'react-native-view-shot';
+import ViewShot, {captureRef} from 'react-native-view-shot';
 import {
+  ButtonCalcular,
   ButtonVoltar,
   Container,
-  ContainerGrafico,
   Header,
+  LabelBotaoCompartilhar,
   Title,
-  TitleGrafico,
 } from '../Calculator/StyledComponents';
 
 const screenWidth = Dimensions.get('window').width;
@@ -84,19 +78,20 @@ export default function Result() {
     navigation.goBack();
   }
 
-  const full = useRef();
+  const viewRef = useRef();
 
-  const compartilhar = useCallback(() => {
-    full.current.capture().then((uri) => {
-      Share.share({
-        message: 'teste',
-        url: uri,
-      });
-    });
-  }, []);
+  const captureAndShareScreenshot = async () => {
+    console.log('shared \n\n\n');
+    await captureRef(viewRef, {
+      format: 'png',
+      quality: 0.8,
+    })
+      .then((uri) => Share.open({message: 'Calculo de Gotejamento', url: uri}))
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <View>
+    <>
       <Container>
         <Header>
           <ButtonVoltar onPress={navigateBack}>
@@ -104,29 +99,27 @@ export default function Result() {
           </ButtonVoltar>
           <Title>Resultado </Title>
         </Header>
-        <TitleGrafico>Gotas {title}</TitleGrafico>
-        <ViewShot ref={full} options={{format: 'jpg', quality: 0.9}}>
-          <ContainerGrafico>
+        <View style={styles.container}>
+          <ViewShot ref={viewRef}>
+            <Text style={styles.label}>{title} Gotas/(M)</Text>
+
             <LineChart
               data={line}
-              width={screenWidth - 10} // from react-native
+              width={screenWidth} // from react-native
               height={300}
               segments={5}
               yAxisLabel={''}
               verticalLabelRotation={30}
               chartConfig={{
-                backgroundColor: '##FFA500',
+                backgroundColor: '#FFA500',
                 backgroundGradientFrom: '#c0c0c0',
                 backgroundGradientTo: '#ffa726',
                 decimalPlaces: 0, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16,
-                },
+                style: {marginTop: 40, marginLeft: 20, fontSize: 1},
               }}
-              bezier
               style={{
-                borderRadius: 10,
+                marginVertical: 12,
               }}
               renderDotContent={({x, y, index}) => (
                 <Text
@@ -137,36 +130,31 @@ export default function Result() {
                     paddingLeft: x,
                     color: 'black',
                   }}>
-                  {data[index]}
+                  {data[index] + 'ml'}
                 </Text>
               )}
             />
-          </ContainerGrafico>
-        </ViewShot>
-
-        <TouchableOpacity style={styles.action} onPress={compartilhar}>
-          <Text style={styles.actionText}>Finalizar</Text>
-        </TouchableOpacity>
+          </ViewShot>
+        </View>
+        <ButtonCalcular onPress={captureAndShareScreenshot}>
+          <LabelBotaoCompartilhar>COMPARTILHAR</LabelBotaoCompartilhar>
+        </ButtonCalcular>
       </Container>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  action: {
-    marginTop: 15,
-    marginBottom: 8,
-    marginLeft: '30%',
-    backgroundColor: '#009a17',
-    borderRadius: 8,
-    height: 50,
-    width: '40%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  actionText: {
+  label: {
     color: '#FFF',
-    fontSize: 15,
+    fontSize: 24,
     fontWeight: 'bold',
+    fontFamily: 'Roboto',
+    lineHeight: 28,
+    textAlign: 'center',
+    top: 0,
+  },
+  container: {
+    alignItems: 'center',
   },
 });
