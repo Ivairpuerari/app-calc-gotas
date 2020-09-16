@@ -6,8 +6,9 @@ const Header = styled.View`
   left: 0px;
   right: 0px;
   top: 0px;
+  align-items: center;
 
-  background: #00008b;
+  background: #18446b;
 `;
 
 const Container = styled.View`
@@ -15,21 +16,19 @@ const Container = styled.View`
   flex-direction: row;
   padding: 0px;
 
-  align-items: center
+  align-items: center;
 
   position: relative;
   width: 100%;
   height: 100%;
 
-  background: #c0c0c0;
+  background: #dfe4ea;
 `;
 
 const ContainerGrafico = styled.View`
-  position: absolute;
-  width: 315px;
-  height: 270px;
-
-  top: 100px;
+  background: #18446b;
+  border-radius: 20px;
+  opacity: 100;
 `;
 
 const TitleGrafico = styled.Text`
@@ -57,10 +56,29 @@ const TitleGrafico = styled.Text`
 
 const Title = styled.Text`
   position: absolute;
-  left: 20%;
-  right: 25%;
-  top: 20.95%;
-  bottom: 23.05%;
+
+  bottom: 30%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  /* white */
+
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+const TitleResultado = styled.Text`
+  position: absolute;
+
+  bottom: 30%;
 
   font-family: Roboto;
   font-style: normal;
@@ -80,7 +98,6 @@ const Title = styled.Text`
 
 const Button = styled.TouchableOpacity`
   position: absolute;
-  
   ${({gotasEnum, microEnum, tempoEnum}) => {
     switch (true) {
       case gotasEnum:
@@ -95,25 +112,22 @@ const Button = styled.TouchableOpacity`
             right: 0px`;
     }
   }}
-  
   width: 100px;
-  height: 105px
- 
+  height: 105px;
   top: 92px;
   ${(props) => {
     if (props.selecionado) {
-      return ` background: #2D9CDB`;
+      return ` background: #69c2e6`;
     } else {
-      return ` background: #00008b`;
+      return ` background: #18446b`;
     }
   }}
- 
-  border-radius: 32px;
+  border-radius: 15px;
 `;
 
 const ButtonVoltar = styled.TouchableOpacity`
   position: absolute;
-  height: 20px;
+  height: 40px;
   left: 4px;
   right: 303px;
   top: 10px;
@@ -303,8 +317,8 @@ const ButtonCalcular = styled.TouchableOpacity`
   left: 65px;
   top: 550px;
 
-  background: #00008b;
-  border-radius: 33px;
+  background: #18446b;
+  border-radius: 15px;
 `;
 const LabelBotaoCalcular = styled.Text`
   width: 224px;
@@ -357,8 +371,8 @@ const ContentVolume = styled.View`
   left: 30px;
   top: 257px;
 
-  background: #00008b;
-  border-radius: 33px;
+  background: #18446b;
+  border-radius: 5px;
 `;
 
 const ContentTempo = styled.View`
@@ -368,8 +382,8 @@ const ContentTempo = styled.View`
   left: 30px;
   top: 370px;
 
-  background: #00008b;
-  border-radius: 33px;
+  background: #18446b;
+  border-radius: 5px;
 `;
 
 const ContentGotas = styled.View`
@@ -379,8 +393,8 @@ const ContentGotas = styled.View`
   left: 30px;
   top: 370px;
 
-  background: #00008b;
-  border-radius: 33px;
+  background: #18446b;
+  border-radius: 5px;
 `;
 
 export {
@@ -405,4 +419,5 @@ export {
   ContainerGrafico,
   TitleGrafico,
   LabelBotaoCompartilhar,
+  TitleResultado,
 };

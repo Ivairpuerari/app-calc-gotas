@@ -11,12 +11,12 @@ import {
   Container,
   Header,
   LabelBotaoCompartilhar,
-  Title,
+  TitleResultado,
 } from '../Calculator/StyledComponents';
 
-const screenWidth = Dimensions.get('window').width;
-
 export default function Result() {
+  const screenWidth = Dimensions.get('window').width;
+
   const navigation = useNavigation();
 
   const route = useRoute();
@@ -69,7 +69,7 @@ export default function Result() {
     datasets: [
       {
         data: data,
-        strokeWidth: 2, // optional
+        strokeWidth: 2,
       },
     ],
   };
@@ -95,14 +95,13 @@ export default function Result() {
       <Container>
         <Header>
           <ButtonVoltar onPress={navigateBack}>
-            <Feather name="arrow-left" size={50} color="white" />
+            <Feather name="arrow-left" size={35} color="white" />
           </ButtonVoltar>
-          <Title>Resultado </Title>
+          <TitleResultado> Resultado </TitleResultado>
         </Header>
         <View style={styles.container}>
           <ViewShot ref={viewRef}>
             <Text style={styles.label}>{title} Gotas/(M)</Text>
-
             <LineChart
               data={line}
               width={screenWidth} // from react-native
@@ -111,15 +110,20 @@ export default function Result() {
               yAxisLabel={''}
               verticalLabelRotation={30}
               chartConfig={{
-                backgroundColor: '#FFA500',
-                backgroundGradientFrom: '#c0c0c0',
-                backgroundGradientTo: '#ffa726',
+                backgroundColor: '#18446b',
+                backgroundGradientFrom: '#dfe4ea',
+                backgroundGradientTo: '#18446b',
                 decimalPlaces: 0, // optional, defaults to 2dp
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {marginTop: 40, marginLeft: 20, fontSize: 1},
+                style: {
+                  marginTop: 40,
+                  marginLeft: 25,
+                  fontSize: 1,
+                },
               }}
               style={{
                 marginVertical: 12,
+                borderRadius: 25,
               }}
               renderDotContent={({x, y, index}) => (
                 <Text
@@ -146,7 +150,7 @@ export default function Result() {
 
 const styles = StyleSheet.create({
   label: {
-    color: '#FFF',
+    color: '#18446b',
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'Roboto',

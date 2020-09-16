@@ -114,7 +114,7 @@ export default function Calculator() {
     <>
       <Container>
         <Header>
-          <Title> CALCULADORA DE GOTEJAMENTO</Title>
+          <Title> Cálculo de Gotejamento </Title>
         </Header>
         <Button
           gotasEnum
